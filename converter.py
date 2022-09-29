@@ -8,7 +8,7 @@ widest_px = 185
 
 #Adjusts the contrast of the image in % (1.25 = 125%, .75 = 75% etc.)
 #I wouldn't recommend increasing this past 2.5
-contrast = 1
+contrast = 1.25
 
 ascii= {range(0, 3): '@', range(3, 7): 'Q', range(7, 11): 'B', range(11, 15): '#', 
         range(15, 18): 'N', range(18, 22): 'g', range(22, 26): 'W', range(26, 30): 'M', 
@@ -38,7 +38,7 @@ def adjust(image, contrast):
     else:
         coef = ih/widest_px
 
-    return img.resize((int(iw/(coef*(10/7))), int(ih/(coef*(10/5)))))
+    return img.resize((int(iw/(coef*(10/7))), int(ih/(coef*(10/4)))))
 
 def build_ascii(array):
     new = [[]*i for i in range(len(array))]
@@ -57,7 +57,5 @@ ary = numpy.array(img)
 
 with open('output.txt', 'w') as f:
     ret = build_ascii(ary)
-    output = ''
-    for line in ret:
-        output = output+''.join(x for x in line)+'\n'
+    output = ''.join([''.join([x for x in line])+'\n' for line in ret])
     f.write(output)
